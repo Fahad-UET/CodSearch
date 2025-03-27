@@ -215,7 +215,7 @@ export function Calculator({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-[999999] bg-black/75 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 flex items-center justify-center z-[999999] bg-black/75 backdrop-blur-sm px-4 py-2">
       <div 
         ref={calculatorRef}
         onMouseDown={handleMouseDown}
@@ -307,7 +307,7 @@ export function Calculator({ onClose }: { onClose: () => void }) {
           </div>
         )}
 
-        <div className="flex-none grid grid-cols-4 gap-2 p-4 bg-gradient-to-br from-gray-50 to-purple-50">
+        <div className="flex-none grid grid-cols-4 gap-2 p-4 py-0 bg-gradient-to-br from-gray-50 to-purple-50">
           {/* First Row */}
           <CalculatorButton onClick={clearAll} variant="secondary">
             AC

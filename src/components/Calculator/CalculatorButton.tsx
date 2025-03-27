@@ -13,7 +13,7 @@ export function CalculatorButton({
   variant = 'default',
   className = ''
 }: CalculatorButtonProps) {
-  const baseClasses = 'h-14 md:h-16 font-medium rounded-xl transition-all hover:scale-[0.98] active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 shadow-lg flex items-center justify-center w-full';
+  const baseClasses = 'h-14 md:h-14 font-medium rounded-xl transition-all hover:scale-[0.98] active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 shadow-lg flex items-center justify-center w-full';
   
   const variantClasses = {
     default: 'bg-white hover:bg-gray-50 text-gray-900 hover:shadow text-xl',
