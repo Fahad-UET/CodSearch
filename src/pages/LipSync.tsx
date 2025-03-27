@@ -14,6 +14,7 @@ import type {
 } from '../types/lipsync';
 import { useBackground } from '../store/background';
 import { useProductStore } from '@/store';
+import { getAiGenerations } from '@/services/firebase/aiGenerations';
 
 function LipSync() {
   const [videoUrl, setVideoUrl] = React.useState('');
@@ -41,6 +42,26 @@ function LipSync() {
       sessionStorage.removeItem('lipSyncAudio');
     }
   }, []);
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get('id');
+  const handleHistoryItemClick = (item: any) => {
+      if (item.type === 'lipsync' && item.content.videoUrl) {
+        setOutputUrl(item.content.videoUrl);
+      }
+    };
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        const result: any = await getAiGenerations(user?.uid, id);
+        handleHistoryItemClick(result[0]);
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+    if (user?.uid && id) {
+      getData();
+    }
+  }, [user, id]);
 
   const videoInputRef = React.useRef<HTMLInputElement>(null);
   const audioInputRef = React.useRef<HTMLInputElement>(null);
@@ -83,7 +104,7 @@ function LipSync() {
             setVideoUrl(fileUrl);
             setIsVideoBase64(true);
           }
-      
+
           // const video = document.createElement('video');
           // video.preload = 'metadata';
 
