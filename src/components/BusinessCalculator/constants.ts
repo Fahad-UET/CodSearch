@@ -1,0 +1,3 @@
+export const inputClasses = "w-full pl-8 rounded-lg bg-purple-50/50 border-purple-200 focus:border-purple-500 focus:ring focus:ring-purple-200 placeholder-purple-300 text-purple-900";
+export const rangeClasses = "w-full h-2 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600";
+export const selectClasses = "w-full rounded-lg bg-purple-50/50 border-purple-200 focus:border-purple-500 focus:ring focus:ring-purple-200 text-purple-900";

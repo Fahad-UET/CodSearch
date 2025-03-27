@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Product Research Tracker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Login Form -->
+    <div id="loginPrompt" class="login-prompt">
+      <div class="prompt-content">
+        <div class="auth-tabs">
+          <button id="loginTab" class="auth-tab active">Sign In</button>
+          <button id="registerTab" class="auth-tab">Register</button>
+        </div>
+
+        <form id="authForm" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              required 
+              placeholder="Enter your email"
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input 
+              type="password" 
+              id="password" 
+              required 
+              placeholder="Enter your password"
+              class="form-input"
+            >
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn-primary">
+            Sign In
+          </button>
+
+          <div class="divider">or</div>
+
+          <button type="button" id="openAppBtn" class="btn-secondary">
+            Open Web App
+          </button>
+          
+          <p id="forgotPassword" class="text-link">
+            Forgot password?
+          </p>
+        </form>
+
+        <div class="policy-links">
+          <a href="https://silver-frangipane-907040.netlify.app/privacy" target="_blank" rel="noopener noreferrer">
+            Privacy Policy
+          </a>
+          <span class="separator">•</span>
+          <a href="https://silver-frangipane-907040.netlify.app/terms" target="_blank" rel="noopener noreferrer">
+            Terms of Service
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- User View -->
+    <div id="userView" class="hidden">
+      <div class="user-info">
+        <div class="user-details">
+          <span id="userEmail"></span>
+          <div class="link-status">
+            <span id="linkStatus" class="status-badge"></span>
+          </div>
+        </div>
+        <button id="linkAccountBtn" class="btn-secondary">
+          Link Account
+        </button>
+      </div>
+
+      <div class="board-selector">
+        <label for="boardSelect">Select Board:</label>
+        <select id="boardSelect" class="select">
+          <option value="">Choose a board...</option>
+        </select>
+      </div>
+
+      <div class="actions">
+        <button id="scrapeBtn" class="btn-primary" disabled>
+          Scrape Current Page
+        </button>
+      </div>
+
+      <div id="message" class="message hidden"></div>
+    </div>
+
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+    </div>
+  </div>
+  
+  <script src="firebase-bundle.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

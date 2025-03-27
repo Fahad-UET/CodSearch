@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ... previous rules remain the same ...
+
+    // Share links collection
+    match /shareLinks/{linkId} {
+      allow read: if true;  // Allow public read for link validation
+      allow create: if isSignedIn() && 
+        isOwner(get(/databases/$(database)/documents/boards/$(request.resource.data.boardId)));
+      allow delete: if isSignedIn() && 
+        isOwner(get(/databases/$(database)/documents/boards/$(resource.data.boardId)));
+    }
+  }
+}
