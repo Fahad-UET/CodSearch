@@ -39,7 +39,7 @@ import { color } from 'framer-motion';
 import CodSearch from './updated/CodSearch/CodSearch';
 import GenerateKeywords from './updated/GenerateKeywords/GenerateKeywords';
 import Modal from './AIText/ui/Modal';
-import CreditsModal from './CreditsModal';
+// import CreditsModal from './CreditsModal';
 
 interface ProductDetailsModalProps {
   product: any;
@@ -243,7 +243,7 @@ export function ProductDetailsModal({
                     {/* {isSearch && <CodSearch />} */}
                   </div>
 
-                  <div className="relative" style={{ zIndex: '100000000000000000000000000000 !important' }}>
+                  {/* <div className="relative" style={{ zIndex: '100000000000000000000000000000 !important' }}>
                     <p
                       className="flex items-center gap-1 text-purple-500 cursor-pointer"
                       onMouseEnter={() => setShowCredits(true)}
@@ -255,7 +255,7 @@ export function ProductDetailsModal({
                       showCredits={showCredits}
                       setShowCredits={() => setShowCredits(false)}
                     />
-                  </div>
+                  </div> */}
 
                   {/* <div className="flex items-center gap-4 mt-1 text-sm">
                 <div className="flex items-center gap-2">

@@ -36,12 +36,20 @@ function VideoGenerator() {
 
   // Check for image URL from text-to-image page
   React.useEffect(() => {
-    const imageToVideo = sessionStorage.getItem('imageToVideo');
-    if (imageToVideo) {
-      setImageUrl(imageToVideo);
-      // Clear the stored URL
-      sessionStorage.removeItem('imageToVideo');
-    }
+    setImageUrl(sessionStorage.getItem('imageToVideo'))
+    const handleStorageChange = () => {
+      const currentValue = sessionStorage.getItem('imageToVideo');
+      if (currentValue) {
+        setImageUrl(currentValue);
+        sessionStorage.removeItem('imageToVideo');
+      }
+    };
+  
+    window.addEventListener('session-storage-change', handleStorageChange);
+  
+    return () => {
+      window.removeEventListener('session-storage-change', handleStorageChange);
+    };
   }, []);
 
   const EXAMPLE_PROMPT =
@@ -50,11 +58,13 @@ function VideoGenerator() {
   const { addTask } = useBackground();
   const { user } = useProductStore();
   const OPENAI_API_KEY =
-    import.meta.env.VITE_OPENAI_API_KEY;
+    import.meta.env.VITE_OPENAI_API_KEY ||
+    '';
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const API_KEY =
-    import.meta.env.VITE_FAL_KEY;
+    import.meta.env.VITE_FAL_KEY ||
+    '';
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -105,12 +115,12 @@ function VideoGenerator() {
     const file = e.target.files?.[0];
     if (file) {
       const maxSize = 2 * 1024 * 1024; // 2MB limit
-      if (file.size > maxSize) {
-        setError(
-          'File size must be less than 2MB. Please compress your image or use a smaller file.'
-        );
-        return;
-      }
+      // if (file.size > maxSize) {
+      //   setError(
+      //     'File size must be less than 2MB. Please compress your image or use a smaller file.'
+      //   );
+      //   return;
+      // }
 
       // Check image dimensions
       const img = new Image();
@@ -170,13 +180,30 @@ function VideoGenerator() {
           {
             role: 'system',
             content:
-              'You are a professional cinematographer and video director specializing in creating highly detailed, photorealistic video sequences. Your expertise includes:\n\n1. Advanced cinematography techniques\n2. Professional video production\n3. Visual effects and motion design\n4. Lighting and color theory\n5. Scene composition and framing\n\nYour goal is to transform basic video descriptions into professional, detailed prompts that will generate highly realistic and visually stunning videos.',
+              `You are a professional video director and cinematographer. 
+Your job is to rewrite basic video prompts to make them slightly more detailed and visually clear — 
+without exaggerating or overloading the description.
+
+You use simple, natural language. 
+Avoid long-winded descriptions or excessive visual effects. 
+Focus on clarity, concise camera direction, and minimal cinematic touches.`,
           },
           {
             role: 'user',
-            content: `Enhance this video prompt with cinematic details:\n\n${prompt}\n\nInclude:\n- Camera movements and angles\n- Lighting and atmosphere\n- Visual effects and motion\n- Color grading and style\n\nMake it photorealistic and detailed.`,
+            content: `Simplify and slightly enhance this video prompt with calm cinematic direction:\n\n${prompt}\n\nInclude subtle:\n- Camera movement or angle (if needed)\n- Natural lighting or tone\n- Realistic style\n\nKeep it short, clean, and not over-dramatic.`,
           },
         ],
+        // messages: [
+        //   {
+        //     role: 'system',
+        //     content:
+        //       'You are a professional cinematographer and video director specializing in creating highly detailed, photorealistic video sequences. Your expertise includes:\n\n1. Advanced cinematography techniques\n2. Professional video production\n3. Visual effects and motion design\n4. Lighting and color theory\n5. Scene composition and framing\n\nYour goal is to transform basic video descriptions into professional, detailed prompts that will generate highly realistic and visually stunning videos.',
+        //   },
+        //   {
+        //     role: 'user',
+        //     content: `Enhance this video prompt with cinematic details:\n\n${prompt}\n\nInclude:\n- Camera movements and angles\n- Lighting and atmosphere\n- Visual effects and motion\n- Color grading and style\n\nMake it photorealistic and detailed.`,
+        //   },
+        // ],
       });
 
       if (completion.choices[0]?.message?.content) {
@@ -275,7 +302,8 @@ function VideoGenerator() {
       // Handle specific error cases
       if (
         errorMessage.toLowerCase().includes('network error') ||
-        errorMessage.toLowerCase().includes('failed to fetch')
+        errorMessage.toLowerCase().includes('failed to fetch') || 
+        errorMessage.toLowerCase().includes("balance")
       ) {
         errorMessage =
           'Network error. Please check your internet connection and try again. If the issue persists, the service may be temporarily unavailable.';
@@ -314,6 +342,7 @@ function VideoGenerator() {
     <ToolLayout
       title="Image to Video"
       description="Transform your images into dynamic videos with AI"
+      modelId='fal-ai/kling-video'
       controls={
         <>
           <form onSubmit={handleSubmit} className="space-y-6">

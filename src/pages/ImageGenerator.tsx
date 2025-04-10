@@ -42,7 +42,7 @@ function ImageGenerator() {
   const { user } = useProductStore();
   const { addTask } = useBackground();
 
-  const API_KEY = import.meta.env.VITE_FAL_KEY || 'c356025c-0f92-4873-a43b-e3346e53cd93:b43044d3956488e624cac9d8ebdc098d';
+  const API_KEY = import.meta.env.VITE_FAL_KEY || '';
   const EXAMPLE_PROMPT =
     'Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth. The word "FLUX" is painted over it in big, white brush strokes with visible texture.';
 

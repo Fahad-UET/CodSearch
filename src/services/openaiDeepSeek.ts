@@ -1,4 +1,4 @@
-const DEEPSEEK_API_KEY = 'sk-d8897142d3f94cbc856aae7f92902390';
+const DEEPSEEK_API_KEY = import.meta.env.VITE_DEEPSEEK_API_KEY;
 const DEEPSEEK_BASE_URL = 'https://api.deepseek.com';
 
 export interface GenerationResponse {

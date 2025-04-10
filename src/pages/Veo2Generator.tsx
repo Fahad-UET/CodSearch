@@ -39,9 +39,11 @@ function Veo2Generator() {
   const { user } = useProductStore();
   const { addTask } = useBackground();
   const API_KEY =
-    import.meta.env.VITE_FAL_KEY;
+    import.meta.env.VITE_FAL_KEY ||
+    '';
   const OPENAI_API_KEY =
-    import.meta.env.VITE_OPENAI_API_KEY;
+    import.meta.env.VITE_OPENAI_API_KEY ||
+    '';
 
   const EXAMPLE_PROMPT =
     'Professional Cinematic Scene\n\nScene Overview:\nCreate a single, impactful 5-second shot in 4K resolution. Focus on achieving a natural, cinematic look with professional camera work and authentic lighting. The composition should be clean and purposeful, without any text overlays or graphics.\n\nLighting and Atmosphere:\nMain Lighting: Natural lighting setup that enhances depth and dimension.\nAccent Lights: Subtle edge lighting for natural subject separation.\nMood: Create an authentic atmosphere that matches the scene context.\n\nVisual Style:\nColor Treatment: Natural color palette with balanced tones.\nFocus: Professional depth of field to guide viewer attention.\nDepth: Create natural depth through thoughtful composition.\n\nPost-Processing:\nSharpness: Professional clarity while maintaining natural film-like qualities.\nContrast: Balanced dynamic range for a cinematic look.\nColor Grading: Professional grade inspired by high-end cinema cameras.';
@@ -238,6 +240,7 @@ does not add stars or special characters to raw text
     <ToolLayout
       title="Text to Video"
       description="Create cinematic videos from text descriptions"
+         modelId="fal-ai/veo2"
       controls={
         <>
           <form onSubmit={handleSubmit} className="space-y-6">

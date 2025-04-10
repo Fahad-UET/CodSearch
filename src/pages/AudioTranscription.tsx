@@ -32,14 +32,13 @@ function AudioTranscription() {
   const [diarize, setDiarize] = React.useState(true);
   const [numSpeakers, setNumSpeakers] = React.useState<number | ''>('');
   const [timestampsGranularity, setTimestampsGranularity] = React.useState<
-    'none' | 'word' | 'character'
-  >('none');
+    'word' | 'character'
+  >('word');
   const [tagAudioEvents, setTagAudioEvents] = React.useState(true);
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const API_KEY =
-    import.meta.env.VITE_ELEVENLABS_API_KEY ||
-    'sk_060daf1571fe015fbad9f5f86d5dea78106efc8cafaade2d';
+    import.meta.env.VITE_ELEVENLABS_API_KEY || '';
 
   // Check for text from transcription on mount
   React.useEffect(() => {
@@ -153,7 +152,7 @@ function AudioTranscription() {
       setWords(result.words || []);
 
       // Format transcription with timestamps if available
-      if (timestampsGranularity !== 'none' && result.words && result.words.length > 0) {
+      if (result.words && result.words.length > 0) {
         const formattedText = result.words
           .map((word, index) => {
             if (word.type === 'word' && typeof word.start === 'number') {
@@ -209,6 +208,7 @@ function AudioTranscription() {
     <ToolLayout
       title="Speech to Text"
       description="Convert your audio files into text with AI"
+       modelId="elevenlabs/speech-to-text"
       controls={
         <>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -263,7 +263,7 @@ function AudioTranscription() {
                 <select
                   value={timestampsGranularity}
                   onChange={e =>
-                    setTimestampsGranularity(e.target.value as 'none' | 'word' | 'character')
+                    setTimestampsGranularity(e.target.value as 'word' | 'character')
                   }
                   className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >

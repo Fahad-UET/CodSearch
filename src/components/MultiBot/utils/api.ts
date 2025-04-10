@@ -1,5 +1,5 @@
-const API_KEY = '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';
-const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const API_KEY = import.meta.env.VITE_OPENAI_KEY;
+const API_URL = import.meta.env.VITE_OPENAI_URL;
 
 import { AVAILABLE_MODELS, ModelOption } from './Types';
 

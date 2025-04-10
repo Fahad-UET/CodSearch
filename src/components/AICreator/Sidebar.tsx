@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
@@ -16,12 +17,13 @@ import {
   Shirt,
   Package,
   Maximize2,
-  FolderDown,
-  FolderUp,
   Volume2,
   Sparkles,
   Wand2,
   ArrowLeft,
+  DollarSign,
+  FileImage,
+  Shuffle, // Added DollarSign import for Credits
 } from 'lucide-react';
 
 interface NavCategory {
@@ -39,6 +41,7 @@ interface sidebarProps {
   onBack: () => void;
   setIsCollapsed: () => void;
 }
+
 function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
   const [hoveredLink, setHoveredLink] = React.useState<string | null>(null);
   const [expandedCategory, setExpandedCategory] = React.useState<string | null>('Video Tools');
@@ -77,7 +80,7 @@ function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
       links: [
         { to: '/text-to-speech', icon: <Mic />, label: 'Text to Speech' },
         { to: '/transcribe', icon: <Mic />, label: 'Speech to Text' },
-        { to: '/speech-to-video', icon: <Video />, label: 'Speech to Video' },
+        // { to: '/speech-to-video', icon: <Video />, label: 'Speech to Video' },
         { to: '/lipsync', icon: <Music />, label: 'Lip Sync' },
         { to: '/video-to-audio', icon: <Music />, label: 'Video to Audio' },
       ],
@@ -95,7 +98,7 @@ function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
         { to: '/image-to-text', icon: <FileText />, label: 'Image to Text' },
         { to: '/image-upscaler', icon: <Maximize2 />, label: 'Upscaler' },
         { to: '/outfits-image', icon: <Shirt />, label: 'Outfits to Image' },
-        { to: '/product-image', icon: <Package />, label: 'Product to Image' },
+        // { to: '/product-image', icon: <Package />, label: 'Product to Image' },
       ],
     },
     {
@@ -107,6 +110,10 @@ function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
         { to: '/video-watermark-remover', icon: <Eraser />, label: 'Remove Watermark' },
         { to: '/video-to-audio', icon: <Music />, label: 'Extract Audio' },
         { to: '/video-upscaler', icon: <Maximize2 />, label: 'Upscaler' },
+        { to: '/video-to-frames', icon: <ImageIcon />, label: 'Video to Images' },
+        { to: '/video-to-gif', icon: <FileImage />, label: 'Video to GIF' },
+        { to: '/video-trimmer', icon: <Scissors />, label: 'Video Trimmer' },
+        { to: '/video-mixer', icon: <Shuffle />, label: 'Video Mixer' },
         { to: '/veo2', icon: <Clapperboard />, label: 'Text to Video' },
         { to: '/outfits-video', icon: <Video />, label: 'Outfits Video' },
         { to: '/product-video', icon: <Video />, label: 'Product Video' },
@@ -125,10 +132,17 @@ function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
       title: 'Product Tools',
       icon: <Package />,
       links: [
-        { to: '/product-image', icon: <Package />, label: 'Product Shot' },
+        // { to: '/product-image', icon: <Package />, label: 'Product Shot' },
         { to: '/product-variations', icon: <Package />, label: 'Variations' },
         { to: '/product-video', icon: <Video />, label: 'Product Video' },
         { to: '/product-replace', icon: <Replace />, label: 'Replace Objects' },
+      ],
+    },
+    {
+      title: 'Credits',
+      icon: <DollarSign />,
+      links: [
+        { to: '/credits', icon: <DollarSign />, label: 'Credits/1k tokens' },
       ],
     },
   ];
@@ -186,13 +200,11 @@ function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
                   setExpandedCategory(expandedCategory === category.title ? null : category.title)
                 }
                 className={`
-                w-full flex items-center ${
-                  isCollapsed ? 'justify-center' : 'justify-between'
-                } px-2.5 py-2
-                rounded-xl transition-all duration-300 text-white/70 hover:text-white
-                backdrop-blur-md border border-white/5 hover:border-white/10
-                ${expandedCategory === category.title ? 'bg-white/5' : ''}
-              `}
+                  w-full flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} px-2.5 py-2
+                  rounded-xl transition-all duration-300 text-white/70 hover:text-white
+                  backdrop-blur-md border border-white/5 hover:border-white/10
+                  ${expandedCategory === category.title ? 'bg-white/5' : ''}
+                `}
               >
                 <div className="flex items-center gap-3">
                   <div className="w-4 h-4">{category.icon}</div>
@@ -200,9 +212,7 @@ function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
                 </div>
                 {!isCollapsed && (
                   <div
-                    className={`transition-transform duration-300 ${
-                      expandedCategory === category.title ? 'rotate-180' : ''
-                    }`}
+                    className={`transition-transform duration-300 ${expandedCategory === category.title ? 'rotate-180' : ''}`}
                   >
                     <ChevronLeft className="w-3.5 h-3.5 rotate-90" />
                   </div>
@@ -218,26 +228,23 @@ function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
                       onMouseEnter={() => setHoveredLink(link.to)}
                       onMouseLeave={() => setHoveredLink(null)}
                       className={({ isActive }) => `
-              relative flex items-center ${
-                isCollapsed ? 'justify-center' : 'gap-3'
-              } px-3 py-2.5 rounded-xl transition-all duration-300
-              backdrop-blur-md border border-transparent transform-style-3d
-              ${
-                isActive
-                  ? 'bg-gradient-to-r from-[#4A2A7A]/60 to-[#7A4AAA]/40 text-white border-white/20 shadow-[0_0_35px_-10px_rgba(154,106,202,0.5)] translate-z-12'
-                  : 'text-white/70 hover:bg-white/5 hover:text-white hover:border-white/10 hover:translate-z-12'
-              }
-              ${
-                hoveredLink === link.to && !isActive
-                  ? 'transform scale-[1.02] shadow-[0_0_30px_-5px_rgba(154,106,202,0.3)]'
-                  : ''
-              }
-            `}
+                        relative flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} 
+                        px-3 py-2.5 rounded-xl transition-all duration-300
+                        backdrop-blur-md border border-transparent transform-style-3d
+                        ${
+                          isActive
+                            ? 'bg-gradient-to-r from-[#4A2A7A]/60 to-[#7A4AAA]/40 text-white border-white/20 shadow-[0_0_35px_-10px_rgba(154,106,202,0.5)] translate-z-12'
+                            : 'text-white/70 hover:bg-white/5 hover:text-white hover:border-white/10 hover:translate-z-12'
+                        }
+                        ${
+                          hoveredLink === link.to && !isActive
+                            ? 'transform scale-[1.02] shadow-[0_0_30px_-5px_rgba(154,106,202,0.3)]'
+                            : ''
+                        }
+                      `}
                     >
                       <div
-                        className={`w-4 h-4 transition-all duration-300 ${
-                          isCollapsed ? 'scale-110' : ''
-                        } group-hover:scale-110 group-hover:text-[#9A6ACA]`}
+                        className={`w-4 h-4 transition-all duration-300 ${isCollapsed ? 'scale-110' : ''} group-hover:scale-110 group-hover:text-[#9A6ACA]`}
                       >
                         {link.icon}
                       </div>
@@ -248,7 +255,7 @@ function Sidebar({ onBack, isCollapsed, setIsCollapsed }: sidebarProps) {
                       )}
                       {/* Glowing hover effect */}
                       <div
-                        className={`absolute inset-0 rounded-xl bg-gradient-to-r from-[#4A2A7A]/0 via-[#9A6ACA]/10 to-[#4A2A7A]/0 opacity-0 transition-opacity duration-300 pointer-events-none ${
+                        className={`absolute inset-0 rounded-xl bg-gradient-to-r from-[#4A2A7A]/0 via-[#9A6ACA]/10 to-[#4A2A7A]/0 opacity-0 transition-opacity durzation-300 pointer-events-none ${
                           hoveredLink === link.to ? 'opacity-80' : ''
                         }`}
                       />

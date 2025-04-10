@@ -35,7 +35,7 @@ export function VideoDownloader({ onError }: VideoDownloaderProps) {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        
+
         // Clear input after successful download
         setDownloadUrl('');
       }

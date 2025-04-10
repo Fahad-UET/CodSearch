@@ -39,7 +39,7 @@ const PREDEFINED_VARIABLES = {
 export function VariablesTab({ productId }: { productId?: string }) {
   // to resolve build issue please check this
   // const { variables, addVariable, updateVariable, deleteVariable, setVariables } =
-  const { variables, createVariable, updateVariable, deleteVariable, setVariables } =
+  const { variables,createVariable , updateVariable, deleteVariable, setVariables } =
     useVariableStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('product');
   const [showAddForm, setShowAddForm] = useState(false);

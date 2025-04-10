@@ -28,11 +28,13 @@ function TextToImage() {
   const [enhancingPrompt, setEnhancingPrompt] = React.useState(false);
   const { user } = useProductStore();
   const OPENAI_API_KEY =
-    import.meta.env.VITE_OPENAI_API_KEY;
+    import.meta.env.VITE_OPENAI_API_KEY ||
+    '';
 
   const { addTask } = useBackground();
   const API_KEY =
-    import.meta.env.VITE_FAL_KEY;
+    import.meta.env.VITE_FAL_KEY ||
+    '';
   const EXAMPLE_PROMPT =
     'A serene landscape with mountains reflected in a crystal clear lake at sunset, photorealistic style, dramatic lighting, 8k resolution';
 
@@ -224,6 +226,7 @@ function TextToImage() {
     <ToolLayout
       title="Text to Image"
       description="Create stunning images from text descriptions with AI"
+       modelId="google/gemini-flash-1.5"
       controls={
         <>
           <form onSubmit={handleSubmit} className="space-y-6">

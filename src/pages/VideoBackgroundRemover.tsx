@@ -33,7 +33,7 @@ function VideoBackgroundRemover() {
   const { user } = useProductStore();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { addTask } = useBackground();
-  const API_KEY = import.meta.env.VITE_FAL_KEY || 'c356025c-0f92-4873-a43b-e3346e53cd93:b43044d3956488e624cac9d8ebdc098d';
+  const API_KEY = import.meta.env.VITE_FAL_KEY || '';
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -110,12 +110,12 @@ function VideoBackgroundRemover() {
       video.onloadedmetadata = () => {
         URL.revokeObjectURL(video.src);
         const maxDimension = 1280; // 720p is safer for processing
-        if (video.videoWidth > maxDimension || video.videoHeight > maxDimension) {
-          setError(
-            `Video dimensions too large. Maximum allowed is ${maxDimension}x${maxDimension} pixels. Please compress your video.`
-          );
-          return;
-        }
+        // if (video.videoWidth > maxDimension || video.videoHeight > maxDimension) {
+        //   setError(
+        //     `Video dimensions too large. Maximum allowed is ${maxDimension}x${maxDimension} pixels. Please compress your video.`
+        //   );
+        //   return;
+        // }
 
         // If dimensions are ok, proceed with base64 conversion
         const reader = new FileReader();
@@ -224,6 +224,7 @@ function VideoBackgroundRemover() {
     <ToolLayout
       title="Remove Video Background"
       description="Remove backgrounds from videos with AI"
+      modelId='fal-ai/ben/v2/video'
       controls={
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">

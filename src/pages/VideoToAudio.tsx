@@ -170,6 +170,7 @@ function VideoToAudio() {
     <ToolLayout
       title="Extract Audio"
       description="Extract audio from video files"
+         modelId="fal-ai/sync-lipsync/video-to-audio"
       controls={
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">

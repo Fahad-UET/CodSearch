@@ -26,10 +26,10 @@ export function FunnelChart({
   const getCurrencyLogo =
     product.category === 'ECOM_LOCAL' ? NORTH_AFRICA_COUNTRIES[product?.country]?.currency : '$';
 
-  const confirmedLeads = Math.round(totalLeads * (Math.round(confirmationRate) / 100));
+  const confirmedLeads = totalLeads * (Math.round(confirmationRate) / 100);
 
   const deliveredOrders = useMemo(
-    () => Math.round(confirmedLeads * (Math.round(deliveryRate) / 100)),
+    () => confirmedLeads * (Math.round(deliveryRate) / 100),
     [confirmedLeads]
   );
 
@@ -113,7 +113,7 @@ export function FunnelChart({
                   </div>
                 </div>
                 <div className="text-3xl font-black text-violet-700 mt-1">
-                  {totalLeads ? Math.round(totalLeads) : 0}
+                  {totalLeads ? totalLeads : 0}
                 </div>
                 <div className="flex items-center justify-center gap-4 text-sm text-violet-600 mt-2">
                   <span className="px-2 py-1 bg-violet-100 rounded-full">

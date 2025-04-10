@@ -161,20 +161,20 @@ export function LinkCard({
                   video.parentElement?.classList.add('error');
                 }}
               />
-              <div className="error absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
+              {/* <div className="error absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
                 <p>Contenu non disponible</p>
-              </div>
+              </div> */}
               {/* <VideoActions ad={ad} /> */}
               {/* <div className="absolute bottom-2 right-2 p-1.5 bg-black/50 backdrop-blur-sm rounded-lg">
                 {ad.platform === '' ? (
                   <Video classtiktokName="w-4 h-4 text-white" />
                 ) : (
                   <Facebook className="w-4 h-4 text-white" />
-                )}
-              </div> */}
-              <div className="absolute bottom-2 left-2 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
+                )} */}
+              {/* </div> */}
+              {/* <div className="absolute bottom-2 left-2 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
                 <Rating value={link.rating} onChange={() => {}} />
-              </div>
+              </div> */}
             </div>
           )}
 
@@ -241,24 +241,24 @@ export function LinkCard({
 
           {/* Action Buttons */}
           <div className="absolute bottom-4 left-4 right-4 flex justify-center gap-2">
-            <button
+            {/* <button
               onClick={handleOpenLink}
               className="p-2 text-white hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors"
               title="Open link"
             >
               <ExternalLink size={18} />
-            </button>
-            <button
+            </button> */}
+            {/* <button
               onClick={handleCopy}
               className="p-2 text-white hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors"
               title="Copy link"
             >
               {copied ? <Check size={18} className="text-green-400" /> : <Copy size={18} />}
-            </button>
+            </button> */}
             {hasDownloadUrl && (
               <button
                 onClick={handleDownload}
-                className={`p-2 text-white hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors ${
+                className={`p-2 text-black hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors ${
                   link.downloaded ? 'text-green-400' : ''
                 }`}
                 title={link.downloaded ? 'Already downloaded' : 'Download content'}
@@ -281,7 +281,7 @@ export function LinkCard({
       {isMedia && (
         <>
           {/* Rating Stars */}
-          <div className="absolute top-4 left-4 right-4 flex justify-center gap-1 opacity-0 group-hover:opacity-100">
+          {/* <div className="absolute top-4 left-4 right-4 flex justify-center gap-1 opacity-0 group-hover:opacity-100">
             {[1, 2, 3, 4, 5].map(star => (
               <button
                 key={`${link.id}-star-${star}`}
@@ -296,28 +296,28 @@ export function LinkCard({
                 />
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
           <div className="absolute bottom-4 left-4 right-4 flex justify-center gap-2 opacity-0 group-hover:opacity-100">
-            <button
+            {/* <button
               onClick={handleOpenLink}
               className="p-2 text-white hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors"
               title="Open link"
             >
               <ExternalLink size={18} />
-            </button>
-            <button
+            </button> */}
+            {/* <button
               onClick={handleCopy}
               className="p-2 text-white hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors"
               title="Copy link"
             >
               {copied ? <Check size={18} className="text-green-400" /> : <Copy size={18} />}
-            </button>
+            </button> */}
             {hasDownloadUrl && (
               <button
                 onClick={handleDownload}
-                className={`p-2 text-white hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors ${
+                className={`p-2 text-black-400 hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors ${
                   link.downloaded ? 'text-green-400' : ''
                 }`}
                 title={link.downloaded ? 'Already downloaded' : 'Download content'}

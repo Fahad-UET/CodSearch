@@ -36,6 +36,7 @@ import { ProfileSection } from '../ProfileSection';
 import { logoutUser } from '@/services/firebase';
 import CountryTimeSelector from '../CountrySelector/CountrySelector';
 import { useProductStore } from '@/store';
+import { useNavigate } from 'react-router-dom';
 
 interface TopBarProps {
   onNavigateHome?: () => void;
@@ -49,7 +50,9 @@ const TopBar: React.FC<TopBarProps> = ({
   setShowNotes,
   setShowCalculator,
   setshowHabitTracker,
+
 }) => {
+  const navigate = useNavigate();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isProfileViewOpen, setIsProfileViewOpen] = useState(false);
   const [showCurrencyConverter, setShowCurrencyConverter] = useState(false);
@@ -64,6 +67,8 @@ const TopBar: React.FC<TopBarProps> = ({
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
+  
+
 
   const handleCountryChange = (code: string) => {
     updateSettings({ country: code });
@@ -97,6 +102,19 @@ const TopBar: React.FC<TopBarProps> = ({
       await logoutUser();
     } catch (error) {
       console.error('Logout failed:', error);
+    }
+  };
+  const handleButtonClick = () => {
+    const toolPages = {
+      creditsHistory: '/credits',
+    };
+
+    const tool = 'creditsHistory'; // You can dynamically set this based on some condition
+    const selectedPage = toolPages[tool];
+
+    if (selectedPage) {
+      setCurrentPage('ai-creator');
+      navigate(selectedPage);
     }
   };
 
@@ -261,8 +279,16 @@ const TopBar: React.FC<TopBarProps> = ({
                   hover:text-white hover:bg-white/5
                  transition-colors"
                 >
-                  Remaining Credits:{userPackage?.credits || 0}
+                  Remaining Credits:{userPackage?.credits || 0}          
                 </div>
+                <div
+                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors"
+                  onClick={handleButtonClick}
+                >
+                  <DollarSign size={16} />
+                  <span>Credits History</span>
+                </div>
+  
               </div>
             )}
           </div>

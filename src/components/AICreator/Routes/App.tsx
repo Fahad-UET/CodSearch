@@ -5,7 +5,7 @@ import VideoGenerator from '@/pages/VideoGenerator';
 import VideoBackgroundRemover from '@/pages/VideoBackgroundRemover';
 import AudioTranscription from '@/pages/AudioTranscription';
 import LipSync from '@/pages/LipSync';
-import SpeechToVideo from '@/pages/SpeechToVideo';
+// import SpeechToVideo from '@/pages/SpeechToVideo';
 import PromptGenerator from '@/pages/PromptGenerator';
 import TextToImage from '@/pages/TextToImage';
 import ImageGenerator from '@/pages/ImageGenerator';
@@ -22,18 +22,23 @@ import FaceSwapImageToVideo from '@/pages/FaceSwapImageToVideo';
 import ImageToText from '@/pages/ImageToText';
 import OutfitsImageToImage from '@/pages/OutfitsImageToImage';
 import OutfitsImageToVideo from '@/pages/OutfitsImageToVideo';
-import ProductImageToImage from '@/pages/ProductImageToImage';
+// import ProductImageToImage from '@/pages/ProductImageToImage';
 import ProductImageVariations from '@/pages/ProductImageVariations';
 import ProductImageToVideo from '@/pages/ProductImageToVideo';
 import ProductObjectReplacer from '@/pages/ProductObjectReplacer';
 import ImageUpscaler from '@/pages/ImageUpscaler';
 import VideoUpscaler from '@/pages/VideoUpscaler';
 import BackgroundTasks from '../BackgroundTasks';
+import CreditsHistory from '@/pages/CreditsHistory';
 import { useHistory } from '@/store/history';
 import { useEffect, useState } from 'react';
 import { useProductStore } from '@/store';
 import { getAllAiGenerations } from '@/services/firebase/aiGenerations';
 import TopBar from '@/components/updated/TopBar';
+import VideoTrimmer from '@/pages/VideoTrimmer';
+import VideoToGif from '@/pages/VedioToGif'
+import VideoMixer from '@/pages/VideoMixer';
+import VideoToFrames from '@/pages/VideoToFrames';
 
 type AIProps = {
   onNavigateHome?: () => void;
@@ -99,7 +104,7 @@ function App({
             <Route path="/video" element={<VideoGenerator />} />
             <Route path="/video-background-remover" element={<VideoBackgroundRemover />} />
             <Route path="/transcribe" element={<AudioTranscription />} />
-            <Route path="/speech-to-video" element={<SpeechToVideo />} />
+            {/* <Route path="/speech-to-video" element={<SpeechToVideo />} /> */}
             <Route path="/prompt" element={<PromptGenerator />} />
             <Route path="/lipsync" element={<LipSync />} />
             <Route path="/text-to-image" element={<TextToImage />} />
@@ -110,6 +115,8 @@ function App({
             <Route path="/image-watermark-remover" element={<ImageWatermarkRemover />} />
             <Route path="/video-watermark-remover" element={<VideoWatermarkRemover />} />
             <Route path="/video-to-audio" element={<VideoToAudio />} />
+            {/* <Route path="/video-to-gif" element={<VideoToGif />} /> */}
+            {/* <Route path="/video-trimmer" element={<VideoTrimmer />} /> */}
             <Route path="/change-image-background" element={<ChangeImageBackground />} />
             <Route path="/remove-image-background" element={<RemoveImageBackground />} />
             <Route path="/face-retoucher" element={<FaceRetoucher />} />
@@ -117,12 +124,17 @@ function App({
             <Route path="/image-to-text" element={<ImageToText />} />
             <Route path="/outfits-image" element={<OutfitsImageToImage />} />
             <Route path="/outfits-video" element={<OutfitsImageToVideo />} />
-            <Route path="/product-image" element={<ProductImageToImage />} />
+            {/* <Route path="/product-image" element={<ProductImageToImage />} /> */}
             <Route path="/product-variations" element={<ProductImageVariations />} />
             <Route path="/product-video" element={<ProductImageToVideo />} />
             <Route path="/product-replace" element={<ProductObjectReplacer />} />
             <Route path="/image-upscaler" element={<ImageUpscaler />} />
             <Route path="/video-upscaler" element={<VideoUpscaler />} />
+            <Route path="/credits" element={<CreditsHistory />} />
+            {/* <Route path="/video-mixer" element={<VideoMixer />} /> */}
+            {/* <Route path="/video-to-frames" element={<VideoToFrames />} /> */}
+
+            
           </Routes>
         </main>
         <BackgroundTasks />

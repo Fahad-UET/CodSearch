@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ImageOff, Star, Trash2, Plus, Search, Download, Check } from 'lucide-react';
+import { X, ImageOff, Star, Trash2, Plus, Search, Download, Check, Bot } from 'lucide-react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { Product } from '../types';
@@ -8,6 +8,7 @@ import { updateProduct as updateProductService } from '../services/firebase';
 import { updateCredits, getCredits } from '@/services/firebase/credits';
 import Notification from './Notification';
 import CreditsInformation from './credits/CreditsInformation';
+import { useNavigate } from 'react-router-dom';
 
 interface PhotoGalleryProps {
     // add any type because it causes issues in ts
@@ -27,7 +28,35 @@ export function PhotoGallery({ images, product, onClose, embedded = false }: Pho
   const [downloadedImages, setDownloadedImages] = useState<Set<string>>(new Set());
   const [selectThumnail, setSelectThumnail] = useState(null);
   const updateProduct = useProductStore(state => state.updateProduct);
-  const { user } = useProductStore();
+  const { user, setCurrentPage } = useProductStore();
+  const [aiToolListVisible, setAiToolListVisible] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+const toggleAIToolList = (image: { id: string }) => {
+  setAiToolListVisible(aiToolListVisible === image.id ? null : image.id);
+};
+
+const openAITool = (tool: string, imageUrl: string) => {
+  const toolPages = {
+    "Image to Video": "/video",
+    "Face Retoucher": "/face-retoucher",
+    "Remove Watermark": "/remove-watermark",
+    "Change Background": "/change-background",
+    "Remove Background": "/remove-background",
+    "Image to Text": "/image-to-text",
+    "Upscaler": "/upscaler",
+    "Outfits to Image": "/outfits-to-image",
+    "Product to Image": "/product-to-image",
+    "Variations": "/variations",
+    "Replace Objects": "/replace-objects",
+  };
+
+  const selectedPage = toolPages[tool];
+  if (selectedPage) {
+    setCurrentPage('ai-creator')
+    navigate(selectedPage)
+  }
+};
   const { userPackage, setPackage } = useProductStore();
   const [notification, setNotification] = useState<{
     show: boolean;
@@ -324,6 +353,43 @@ export function PhotoGallery({ images, product, onClose, embedded = false }: Pho
                   >
                     <Trash2 size={20} />
                   </button>
+                  <div className="">
+  <button
+    onClick={() => toggleAIToolList(image)}
+    className="p-2 absolute right-1 text-white hover:bg-white/20 rounded-lg backdrop-blur-sm transition-colors"
+    title="AI Tools"
+  >
+    <Bot size={20} />
+  </button>
+
+  {/* Drop-Up Menu */}
+  {aiToolListVisible === image.id && (
+  <div className="absolute bottom-5  bg-gradient-to-r from-indigo-600 to-purple-600 right-0 w-48 bg-white shadow-lg rounded-lg border border-white max-h-60 overflow-y-auto">
+    {[
+      "Image to Video",
+      "Face Retoucher",
+      "Remove Watermark",
+      "Change Background",
+      "Remove Background",
+      "Image to Text",
+      "Upscaler",
+      "Outfits to Image",
+      "Product to Image",
+      "Variations",
+      "Replace Objects",
+    ].map((tool) => (
+      <button
+        key={tool}
+        className="block w-full px-4 py-2 text-sm text-white  hover:bg-white hover:text-purple-600 text-left"
+        onClick={() => openAITool(tool, image.url)}
+      >
+        {tool}
+      </button>
+    ))}
+  </div>
+)}
+
+</div>
                 </div>
               </div>
               <Notification
@@ -375,7 +441,7 @@ export function PhotoGallery({ images, product, onClose, embedded = false }: Pho
           </button>
         </div>
         <div className="overflow-y-auto max-h-[calc(90vh-5rem)]">{content}</div>
-      </div>
+      </div>z
     </div>
   );
 }

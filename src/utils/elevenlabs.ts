@@ -3,12 +3,13 @@ import type { AddVoiceResponse, TranscriptionResponse } from '@/types/elevenlabs
 import { useVoice } from '../store/voice';
 import { audioUrl, audioUrlProps } from '@/services/firebase/aiGenerations';
 
-const API_KEY =
-  import.meta.env.VITE_ELEVENLABS_API_KEY || 'sk_060daf1571fe015fbad9f5f86d5dea78106efc8cafaade2d';
+const API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
 
 if (!API_KEY) {
   console.warn('Missing ELEVENLABS_API_KEY in environment variables');
 }
+
+
 
 // Initialize client only if API key is available
 const client = API_KEY
@@ -31,7 +32,6 @@ export const createAudioStreamFromText = async (
   if (!client) {
     throw new Error('ElevenLabs client not initialized. Please check your API key.');
   }
-
   const audioStream = await client.textToSpeech.convertAsStream(voiceId, {
     model_id: 'eleven_multilingual_v2',
     optimize_streaming_latency: 0,
@@ -219,7 +219,7 @@ export const transcribeAudio = async (
     languageCode?: string;
     tagAudioEvents?: boolean;
     numSpeakers?: number;
-    timestampsGranularity?: 'none' | 'word' | 'character';
+    timestampsGranularity?: 'word' | 'character';
     diarize?: boolean;
   } = {}
 ): Promise<any> => {
@@ -234,7 +234,7 @@ export const transcribeAudio = async (
       language_code: options.languageCode,
       tag_audio_events: options.tagAudioEvents ?? true,
       num_speakers: options.numSpeakers,
-      timestamps_granularity: options.timestampsGranularity || 'word',
+      timestamps_granularity: options?.timestampsGranularity || 'word',
       diarize: options.diarize ?? false,
     });
 

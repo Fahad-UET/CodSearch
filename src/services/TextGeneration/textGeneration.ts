@@ -42,7 +42,7 @@ interface OpenAIConfig {
 }
 
 const defaultDeepSeekConfig: DeepSeekConfig = {
-  apiKey: 'sk-d8897142d3f94cbc856aae7f92902390',
+  apiKey: import.meta.env.VITE_DEEPSEEK_API_KEY,
   baseUrl: 'https://api.deepseek.com/v1',
   model: 'deepseek-chat'
 };

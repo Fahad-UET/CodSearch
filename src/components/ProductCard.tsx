@@ -371,7 +371,7 @@ export function ProductCard({ product, listIndex, verticalIndex = 0, role }: Pro
 
           {/* Dropdown Menu */}
           {showDropdown && (
-            <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-[70000]">
+            <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 ">
               <button
                 onClick={() => {
                   setShowDropdown(false); // Close dropdown
@@ -552,7 +552,7 @@ export function ProductCard({ product, listIndex, verticalIndex = 0, role }: Pro
         <div className="absolute inset-0 bg-black bg-opacity-50 z-10 invisible  group-hover:visible"></div>
         <div className="absolute  inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.2)_50%,transparent_100%)] z-10 invisible  group-hover:visible"></div>
 
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex transition-all duration-200 ease-out invisible group-hover:visible flex-col gap-2  z-[20000] ">
+        <div className="absolute right-3 top-1/2 z-20   -translate-y-1/2 flex transition-all duration-200 ease-out invisible group-hover:visible flex-col gap-2   ">
           <button
             onClick={() => {
               setShowPriceManager(true);
@@ -611,7 +611,7 @@ export function ProductCard({ product, listIndex, verticalIndex = 0, role }: Pro
           </button>
         </div>
         {/* bottom card  */}
-        <div className="absolute bottom-3 left-0 right-0 z-[1000] transition-all duration-200 ease-out invisible group-hover:visible">
+        <div className="absolute bottom-3 left-0 right-0 z-20  transition-all duration-200 ease-out invisible group-hover:visible">
           <div className="flex flex-col gap-1.5">
             {/* l=row first*/}
             <div className="flex gap-1">

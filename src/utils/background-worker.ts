@@ -5,7 +5,7 @@ fal.config({
   credentials: import.meta.env.VITE_FAL_KEY
 });
 
-const specialApis = ['fal-ai/fooocus/inpaint','fal-ai/bria/background/remove', 'fal-ai/bria/background/replace', 'fal-ai/any-llm/vision', 'fal-ai/ideogram/v2a/remix', ]
+const specialApis = ['fal-ai/fooocus/inpaint','fal-ai/bria/background/remove', 'fal-ai/bria/background/replace', 'fal-ai/any-llm/vision', 'fal-ai/ideogram/v2a/remix', 'fal-ai/kling-video/v1.6/pro/image-to-video']
 
 
 const POLL_INTERVAL = 5000; // 5 seconds

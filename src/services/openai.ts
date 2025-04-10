@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 
-const DEEPSEEK_API_KEY = 'sk-c727de8143e347bfb802cf62adbeb41f';
+const DEEPSEEK_API_KEY = import.meta.env.VITE_DEEPSEEK_API_KEY;
 
 const API_ENDPOINTS = ['https://api.deepseek.com/v1/chat/completions'];
 

@@ -7,20 +7,20 @@ export function useCurrencyDisplay(countryCode: string, type?: string) {
   const { rates } = useExchangeRates();
   const country: Countries | Country =
     type === 'ECOM_LOCAL'
-      ? NORTH_AFRICA_COUNTRIES
+      ? NORTH_AFRICA_COUNTRIES['MAR']
       : COUNTRIES[countryCode as keyof typeof COUNTRIES];
-  const firstIndex = type ==='ECOM_LOCAL' ? 'MAR' : 'KSA';
-  const [localRate, setLocalRate] = useState<number>(country[firstIndex]?.rate);
+      // const firstIndex = type ==='ECOM_LOCAL' ? 'MAR' : 'KSA';
+      const [localRate, setLocalRate] = useState<number>(country?.rate);
   const [usdToEurRate, setUsdToEurRate] = useState(0.85);
 
   useEffect(() => {
     // Update rate when country changes
     const newCountry =
       type === 'ECOM_LOCAL'
-        ? NORTH_AFRICA_COUNTRIES
+        ? NORTH_AFRICA_COUNTRIES['MAR']
         : COUNTRIES[countryCode as keyof typeof COUNTRIES];
     if (newCountry) {
-      setLocalRate(newCountry[firstIndex]?.rate);
+      setLocalRate(newCountry?.rate);
     }
     if (rates && rates['EUR']) {
       setUsdToEurRate(rates['EUR']);
@@ -33,7 +33,7 @@ export function useCurrencyDisplay(countryCode: string, type?: string) {
 
       return new Intl.NumberFormat(undefined, {
         style: 'currency',
-        currency: country[firstIndex]?.currency || 'USD',
+        currency: country?.currency || 'USD',
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       }).format(localPrice);
@@ -88,7 +88,7 @@ export function useCurrencyDisplay(countryCode: string, type?: string) {
     rate: localRate,
     currencySymbol: new Intl.NumberFormat(undefined, {
       style: 'currency',
-      currency: country[firstIndex]?.currency || 'USD',
+      currency: country?.currency || 'USD',
     })
       .format(0)
       .replace(/[\d.,\s]/g, ''),

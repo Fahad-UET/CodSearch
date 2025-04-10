@@ -39,7 +39,7 @@ function ImageUpscaler() {
   const { user } = useProductStore();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { addTask } = useBackground();
-  const API_KEY = import.meta.env.VITE_FAL_KEY || 'c356025c-0f92-4873-a43b-e3346e53cd93:b43044d3956488e624cac9d8ebdc098d';
+  const API_KEY = import.meta.env.VITE_FAL_KEY || '';
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -216,6 +216,7 @@ function ImageUpscaler() {
     <ToolLayout
       title="Image Upscaler"
       description="Enhance image resolution with AI"
+        modelId="fal-ai/drct-super-resolution"
       controls={
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">

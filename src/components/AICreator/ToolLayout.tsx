@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import { History, Video, Image as ImageIcon, MessageSquare } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useBackground } from '@/store/background';
+
 import HistoryTabs from './HistoryTabs';
 import type { HistoryItem } from '@/store/history';
+import CreditCost from './CreditCost';
 
 interface ToolLayoutProps {
   title: string;
   description: string;
   controls: React.ReactNode;
+  modelId?: string;
   result: React.ReactNode;
   history?: React.ReactNode;
   onHistoryItemClick?: (item: HistoryItem) => void;
   setPrompt?: (prompt: string) => void;
+   children?: React.ReactNode; 
 }
 
 function ToolLayout({
+  modelId,
   title,
   description,
   controls,
@@ -87,6 +92,9 @@ function ToolLayout({
             <header className="text-center">
               <h1 className="text-2xl font-semibold mb-3">{title}</h1>
               <p className="text-gray-400 text-sm">{description}</p>
+              <div className='flex items-center justify-center mt-4'>
+              <CreditCost  modelId={modelId} />
+              </div>
             </header>
             <hr className="border-white/10" />
             {result}

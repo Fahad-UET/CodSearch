@@ -95,4 +95,3 @@ export const deleteSavedPage = async id => {
     throw error;
   }
 };
-7;

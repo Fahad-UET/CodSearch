@@ -39,7 +39,7 @@ function TextGenerator() {
   const { user } = useProductStore();
   const { addTask } = useBackground();
 
-  const API_KEY = import.meta.env.VITE_FAL_KEY || 'c356025c-0f92-4873-a43b-e3346e53cd93:b43044d3956488e624cac9d8ebdc098d';
+  const API_KEY = import.meta.env.VITE_FAL_KEY || '';
   const EXAMPLE_PROMPT = 'What is the meaning of life?';
   const EXAMPLE_SYSTEM_PROMPT =
     'You are a helpful AI assistant that provides clear and concise answers.';
@@ -212,6 +212,7 @@ function TextGenerator() {
     <ToolLayout
       title="Text to Text"
       description="Generate text responses with advanced AI"
+        modelId="google/gemini-flash-1.5"
       controls={
         <>
           <form onSubmit={handleSubmit} className="space-y-6" ref={textGeneratorRef}>

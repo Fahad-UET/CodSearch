@@ -44,6 +44,7 @@ export interface HistoryItem {
     aspectRatio?: string;
     duration?: string;
     seed?: string;
+    details?: string;
   };
   timestamp: number;
 }

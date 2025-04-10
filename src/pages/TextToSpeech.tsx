@@ -121,7 +121,7 @@ function TextToSpeech() {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const API_KEY =
     import.meta.env.VITE_ELEVENLABS_API_KEY ||
-    'sk_060daf1571fe015fbad9f5f86d5dea78106efc8cafaade2d';
+    '';
   const EXAMPLE_TEXT =
     'Welcome to the world of AI-powered text to speech. This technology transforms written words into natural-sounding speech.';
   const EXAMPLE_VOICE_DESCRIPTION = 'A sassy little squeaky mouse';
@@ -346,6 +346,7 @@ function TextToSpeech() {
     <ToolLayout
       title="Text to Speech"
       description="Convert text into natural-sounding speech with advanced AI voice generation"
+        modelId="elevenlabs/text-to-speech"
       controls={
         <>
           {/* Navigation Tabs */}

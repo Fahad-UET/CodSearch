@@ -118,7 +118,7 @@ function HistoryTabs({ onItemClick, defaultTab = 'image', setPrompt }: HistoryTa
   const handleUseLipSync = (e, item) => {
     e.preventDefault();
     e.stopPropagation();
-  
+
     if (item.content.audioUrl) {
       // Store the audio URL in sessionStorage
       sessionStorage.setItem('lipSyncAudio', item.content.audioUrl);
@@ -263,11 +263,10 @@ function HistoryTabs({ onItemClick, defaultTab = 'image', setPrompt }: HistoryTa
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center justify-center w-12 h-12 rounded-md transition-all duration-200 ${
-                activeTab === tab.id
+              className={`flex items-center justify-center w-12 h-12 rounded-md transition-all duration-200 ${activeTab === tab.id
                   ? 'bg-[#4A2A7A] text-white shadow-lg'
                   : 'text-white/60 hover:text-white hover:bg-white/5'
-              }`}
+                }`}
               title={tab.label}
             >
               <div className="w-5 h-5">{tab.icon}</div>
@@ -288,68 +287,66 @@ function HistoryTabs({ onItemClick, defaultTab = 'image', setPrompt }: HistoryTa
                 item.type === 'text' ||
                 item.type === 'image-to-text' ||
                 item.type === 'transcribe') && (
-                <div className="space-y-4">
-                  <p className="text-white/90 line-clamp-4">{item.content.response}</p>
-                  <div className="flex justify-end gap-2 mt-4">
-                    <button
-                      onClick={e =>  handleInsertText(e, item.content.response || '')}
-                      className={`p-2 transition-colors rounded-md flex items-center gap-1 ${
-                        activeElement
-                          ? 'text-white/60 hover:text-white hover:bg-white/5'
-                          : 'text-white/20 cursor-not-allowed'
-                      }`}
-                      title="Insert prompt"
-                      disabled={!activeElement}
-                    >
-                      <ArrowLeft className="w-4 h-4" />
-                      <span className="text-xs">Insert</span>
-                    </button>
-                    <button
-                      onClick={e => handleDownloadText(e, item.content.response || '')}
-                      className="p-2 text-white/40 hover:text-white/60 transition-colors rounded-md hover:bg-white/5"
-                      title="Download as text file"
-                    >
-                      <Download className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={e => handleDownloadPdf(e, item.content.response || '')}
-                      className="p-2 text-white/40 hover:text-white/60 transition-colors rounded-md hover:bg-white/5"
-                      title="Download as PDF"
-                    >
-                      <FileText className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={e => handleCopy(e, item.content.response || '', item.id)}
-                      className="p-2 text-white/40 hover:text-white/60 transition-colors rounded-md hover:bg-white/5"
-                      title={copiedId === item.id ? 'Copied!' : 'Copy response'}
-                    >
-                      {copiedId === item.id ? (
-                        <Check className="w-4 h-4 text-green-400" />
-                      ) : (
-                        <Copy className="w-4 h-4" />
-                      )}
-                    </button>
-                    <button
-                      onClick={e => handleDelete(e, item.id)}
-                      className="p-2 text-white/40 hover:text-red-400 transition-colors rounded-md hover:bg-white/5"
-                      title="Delete"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
+                  <div className="space-y-4">
+                    <p className="text-white/90 line-clamp-4">{item.content.response}</p>
+                    <div className="flex justify-end gap-2 mt-4">
+                      <button
+                        onClick={e => handleInsertText(e, item.content.response || '')}
+                        className={`p-2 transition-colors rounded-md flex items-center gap-1 ${activeElement
+                            ? 'text-white/60 hover:text-white hover:bg-white/5'
+                            : 'text-white/20 cursor-not-allowed'
+                          }`}
+                        title="Insert prompt"
+                        disabled={!activeElement}
+                      >
+                        <ArrowLeft className="w-4 h-4" />
+                        <span className="text-xs">Insert</span>
+                      </button>
+                      <button
+                        onClick={e => handleDownloadText(e, item.content.response || '')}
+                        className="p-2 text-white/40 hover:text-white/60 transition-colors rounded-md hover:bg-white/5"
+                        title="Download as text file"
+                      >
+                        <Download className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={e => handleDownloadPdf(e, item.content.response || '')}
+                        className="p-2 text-white/40 hover:text-white/60 transition-colors rounded-md hover:bg-white/5"
+                        title="Download as PDF"
+                      >
+                        <FileText className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={e => handleCopy(e, item.content.response || '', item.id)}
+                        className="p-2 text-white/40 hover:text-white/60 transition-colors rounded-md hover:bg-white/5"
+                        title={copiedId === item.id ? 'Copied!' : 'Copy response'}
+                      >
+                        {copiedId === item.id ? (
+                          <Check className="w-4 h-4 text-green-400" />
+                        ) : (
+                          <Copy className="w-4 h-4" />
+                        )}
+                      </button>
+                      <button
+                        onClick={e => handleDelete(e, item.id)}
+                        className="p-2 text-white/40 hover:text-red-400 transition-colors rounded-md hover:bg-white/5"
+                        title="Delete"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
               {(item.type === "text-to-speech" || item.type === 'video-to-audio') && (
                 <div className="space-y-4">
                   <audio src={item.content.audioUrl} controls className="w-full" />
                   <div className="flex justify-end gap-2">
                     <button
                       onClick={(e) => handleUseLipSync(e, item)}
-                      className={`p-2 transition-colors rounded-md flex items-center gap-1 ${
-                        activeElement
+                      className={`p-2 transition-colors rounded-md flex items-center gap-1 ${activeElement
                           ? 'text-white/60 hover:text-white hover:bg-white/5'
                           : 'text-white/20 cursor-not-allowed'
-                      }`}
+                        }`}
                       title="Insert URL"
                       disabled={!activeElement}
                     >
@@ -421,15 +418,16 @@ function HistoryTabs({ onItemClick, defaultTab = 'image', setPrompt }: HistoryTa
                         <button
                           onClick={(e) => {
                             e.preventDefault()
-                            e.stopPropagation()            
-                           sessionStorage.setItem('imageToVideo', item.content.imageUrl );
-                           navigate('/video');
-                         }}
-                          className={`p-2 transition-colors rounded-md flex items-center gap-1 ${
-                            activeElement
+                            e.stopPropagation()
+                            sessionStorage.setItem('imageToVideo', item.content.imageUrl);
+                            const event = new Event("session-storage-change");
+                            window.dispatchEvent(event);
+                            navigate('/video');
+                          }}
+                          className={`p-2 transition-colors rounded-md flex items-center gap-1 ${activeElement
                               ? 'text-white/60 hover:text-white hover:bg-white/5'
                               : 'text-white/20 cursor-not-allowed'
-                          }`}
+                            }`}
                           title="Insert URL"
                           disabled={!activeElement}
                         >
@@ -501,11 +499,10 @@ function HistoryTabs({ onItemClick, defaultTab = 'image', setPrompt }: HistoryTa
                     <div className="flex justify-end gap-2">
                       <button
                         onClick={e => handleInsert(e, item.content.videoUrl || '')}
-                        className={`p-2 transition-colors rounded-md flex items-center gap-1 ${
-                          activeElement
+                        className={`p-2 transition-colors rounded-md flex items-center gap-1 ${activeElement
                             ? 'text-white/60 hover:text-white hover:bg-white/5'
                             : 'text-white/20 cursor-not-allowed'
-                        }`}
+                          }`}
                         title="Insert URL"
                         disabled={!activeElement}
                       >

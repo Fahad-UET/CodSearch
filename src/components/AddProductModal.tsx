@@ -97,6 +97,7 @@ export function AddProductModal({
   const [error, setError] = useState<string | null>(null);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory>('PRODUCT_SELLER');
+  const [selectedProductType, setSelectedProductType] = useState('cod');
   const [countries, setCountries] = useState(COUNTRIES);
   const [store, setStore] = useState([]);
   const keys = Object.keys(countries);
@@ -215,6 +216,7 @@ export function AddProductModal({
           title: formData.title,
           status: listId,
           category: selectedCategory,
+          mainCategory: selectedProductType,
           images:
             link?.type && link?.type === 'images'
               ? [{ title: link.url, url: link.url, category: 'images' }]
@@ -360,31 +362,61 @@ export function AddProductModal({
                 </div>
               </div>
             </div>
-
-            {/* Product Categories */}
-            <div className="space-y-4">
-              <label className="text-sm font-medium text-purple-600 mb-3">Product Category</label>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                {PRODUCT_CATEGORIES.map(category => (
-                  <button
-                    key={category.id}
-                    type="button"
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`p-4 rounded-xl border-2 transition-all  ${
-                      selectedCategory === category.id
-                        ? `${category.lightColor} ring-2 ring-purple-500 border-${
-                            category.color.split(' ')[0]
-                          } ${category.textColor}`
-                        : 'border-gray-200 hover:   '
-                    } ${category.bg}`}
-                  >
-                    <div className="w-6 h-6" dangerouslySetInnerHTML={{ __html: category.icon }} />
-                    <h3 className="font-medium mt-2">{category.name}</h3>
-                    <p className="text-sm text-gray-500 mt-1">{category.description}</p>
-                  </button>
-                ))}
+            <div>
+              <label className="text-sm font-medium text-purple-600 mb-3 block">
+                Select Delivery Method
+              </label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <button
+                  onClick={() => setSelectedProductType('cod')}
+                  className={`p-6 rounded-xl border text-left transition-all hover:shadow-lg flex flex-col ${
+                    selectedProductType === 'cod'
+                      ? 'bg-[#4F1B7C] text-white border-[#4F1B7C] shadow-md'
+                      : 'bg-white text-gray-600 border-gray-200 hover:border-[#4F1B7C] hover:text-[#4F1B7C]'
+                  }`}
+                >
+                  <h3 className="font-semibold text-lg mb-2">COD (Cash on Delivery)</h3>
+                </button>
+                <button
+                  onClick={() => setSelectedProductType('dropshipping')}
+                  className={`p-6 rounded-xl border text-left transition-all hover:shadow-lg flex flex-col ${
+                    selectedProductType === 'dropshipping'
+                      ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-md'
+                     : 'bg-white text-gray-600 border-[#2563EB] hover:border-[#2563EB] hover:text-[#2563EB]'
+                  }`}
+                >
+                  <h3 className="font-semibold text-lg mb-2">Dropshipping</h3>
+                </button>
               </div>
-            </div>
+              </div>
+            {/* Product Categories */}
+            {
+              selectedProductType === 'cod' && ( 
+                <div className="space-y-4">
+                  <label className="text-sm font-medium text-purple-600 mb-3">Product Category</label>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    {PRODUCT_CATEGORIES.map(category => (
+                      <button
+                        key={category.id}
+                        type="button"
+                        onClick={() => setSelectedCategory(category.id)}
+                        className={`p-4 rounded-xl border-2 transition-all  ${
+                          selectedCategory === category.id
+                            ? `${category.lightColor} ring-2 ring-purple-500 border-${
+                                category.color.split(' ')[0]
+                              } ${category.textColor}`
+                            : 'border-gray-200 hover:   '
+                        } ${category.bg}`}
+                      >
+                        <div className="w-6 h-6" dangerouslySetInnerHTML={{ __html: category.icon }} />
+                        <h3 className="font-medium mt-2">{category.name}</h3>
+                        <p className="text-sm text-gray-500 mt-1">{category.description}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+               )
+            }
             {/* image url */}
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -436,77 +468,81 @@ export function AddProductModal({
                 </div>
               </div>
               {/* Country and Product Type Section */}
-              <div className="grid grid-cols-2 gap-4">
-                {/* Country Select */}
-                <div>
-                  <label className="block text-sm font-medium bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-1">
-                    Country <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.country}
-                      onChange={e => {
-                        handleSelectChange(e, 'country');
-                      }}
-                      className="w-full px-4 py-2 rounded-xl border border-purple-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none appearance-none"
-                    >
-                      {keys.map(option => (
-                        <option key={option} value={option}>
-                          {countries?.[option]?.name}
-                        </option>
-                      ))}
-                    </select>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-chevron-down w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                    >
-                      <path d="m6 9 6 6 6-6"></path>
-                    </svg>
-                  </div>
-                </div>
+              {
+                selectedProductType === 'cod' && (
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Country Select */}
+                    <div>
+                      <label className="block text-sm font-medium bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-1">
+                        Country <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.country}
+                          onChange={e => {
+                            handleSelectChange(e, 'country');
+                          }}
+                          className="w-full px-4 py-2 rounded-xl border border-purple-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none appearance-none"
+                        >
+                          {keys.map(option => (
+                            <option key={option} value={option}>
+                              {countries?.[option]?.name}
+                            </option>
+                          ))}
+                        </select>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-chevron-down w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                        >
+                          <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                      </div>
+                    </div>
 
-                {/* Product Type Select */}
-                <div>
-                  <label className="block text-sm font-medium bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-1">
-                    Product Type <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.productType} // Bind productType to form state
-                      onChange={e => handleSelectChange(e, 'productType')} // Update productType in form state
-                      className="w-full px-4 py-2 rounded-xl border border-purple-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none appearance-none"
-                    >
-                      {productTypes.map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-chevron-down w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                    >
-                      <path d="m6 9 6 6 6-6"></path>
-                    </svg>
+                    {/* Product Type Select */}
+                    <div>
+                      <label className="block text-sm font-medium bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-1">
+                        Product Type <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.productType} // Bind productType to form state
+                          onChange={e => handleSelectChange(e, 'productType')} // Update productType in form state
+                          className="w-full px-4 py-2 rounded-xl border border-purple-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 outline-none appearance-none"
+                        >
+                          {productTypes.map(option => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-chevron-down w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                        >
+                          <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                 )
+              }
             </div>
             <div className="flex justify-between items-center">
               <CreditsInformation creditType={'addBoardProduct'} />

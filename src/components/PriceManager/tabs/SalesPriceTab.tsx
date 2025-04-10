@@ -262,7 +262,7 @@ export function SalesPriceTab({
       'Per Confirmed': confirmedOrders / settings.confirmationRate,
     };
 
-    const getRequiredsLeads = rateCalculations[defaultValueComissionType] || 0;
+    const getRequiredsLeads = rateCalculations['Per Lead'] || 0;
 
     const costBreakdowns: Record<string, any> = {
       productCosts: {
@@ -1046,7 +1046,7 @@ export function SalesPriceTab({
               <span className="text-purple-600 font-medium">Required Leads</span>
               <span className="text-xl font-bold text-purple-600">
                 {/* {requiredLeads} */}
-                {Math.floor(metrics?.getRequiredsLeads) || 0}
+                {Math.round(metrics?.getRequiredsLeads) || 0}
               </span>
             </div>
             {/* <div className="text-xs text-gray-600">

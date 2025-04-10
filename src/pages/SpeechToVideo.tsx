@@ -31,7 +31,7 @@ function SpeechToVideo() {
   const { addTask } = useBackground();
   const videoInputRef = React.useRef<HTMLInputElement>(null);
   const audioInputRef = React.useRef<HTMLInputElement>(null);
-  const API_KEY = import.meta.env.VITE_FAL_KEY || 'c356025c-0f92-4873-a43b-e3346e53cd93:b43044d3956488e624cac9d8ebdc098d';
+  const API_KEY = import.meta.env.VITE_FAL_KEY || '';
 
   const handleFileUpload =
     (type: 'video' | 'audio') => (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -14,7 +14,6 @@ import type {
 } from '../types/lipsync';
 import { useBackground } from '../store/background';
 import { useProductStore } from '@/store';
-import { getAiGenerations } from '@/services/firebase/aiGenerations';
 
 function LipSync() {
   const [videoUrl, setVideoUrl] = React.useState('');
@@ -27,7 +26,7 @@ function LipSync() {
   const [videoError, setVideoError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
-  const [model, setModel] = React.useState<LipSyncModel>('lipsync-1.9.0-beta');
+  const [model, setModel] = React.useState<LipSyncModel>('lipsync-1.8.0');
   const [syncMode, setSyncMode] = React.useState<SyncMode>('cut_off');
 
   const { addTask } = useBackground();
@@ -42,32 +41,11 @@ function LipSync() {
       sessionStorage.removeItem('lipSyncAudio');
     }
   }, []);
-  const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get('id');
-  const handleHistoryItemClick = (item: any) => {
-      if (item.type === 'lipsync' && item.content.videoUrl) {
-        setOutputUrl(item.content.videoUrl);
-      }
-    };
-  React.useEffect(() => {
-    const getData = async () => {
-      try {
-        const result: any = await getAiGenerations(user?.uid, id);
-        handleHistoryItemClick(result[0]);
-      } catch (error) {
-        console.log({ error });
-      }
-    };
-    if (user?.uid && id) {
-      getData();
-    }
-  }, [user, id]);
 
   const videoInputRef = React.useRef<HTMLInputElement>(null);
   const audioInputRef = React.useRef<HTMLInputElement>(null);
   const API_KEY =
-    import.meta.env.VITE_FAL_KEY ||
-    'c356025c-0f92-4873-a43b-e3346e53cd93:b43044d3956488e624cac9d8ebdc098d';
+    import.meta.env.VITE_FAL_KEY || '';
 
   React.useEffect(() => {
     // Listen for response updates
@@ -104,7 +82,7 @@ function LipSync() {
             setVideoUrl(fileUrl);
             setIsVideoBase64(true);
           }
-
+      
           // const video = document.createElement('video');
           // video.preload = 'metadata';
 
@@ -325,6 +303,7 @@ function LipSync() {
     <ToolLayout
       title="Lip Sync"
       description="Synchronize video lips with new audio using AI"
+      modelId='fal-ai/sync-lipsync'
       controls={
         <>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -425,7 +404,7 @@ function LipSync() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <label className="block text-sm font-medium">Model Version</label>
                 <select
                   value={model}
@@ -436,7 +415,7 @@ function LipSync() {
                   <option value="lipsync-1.8.0">v1.8.0</option>
                   <option value="lipsync-1.7.1">v1.7.1</option>
                 </select>
-              </div>
+              </div> */}
 
               <div className="space-y-2">
                 <label className="block text-sm font-medium">Sync Mode</label>

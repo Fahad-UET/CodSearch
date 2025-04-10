@@ -1068,7 +1068,7 @@ export function SellingPriceTab({
               <span className="text-purple-600 font-medium">Required Leads</span>
               <span className="text-xl font-bold text-purple-600">
                 {/* {requiredLeads} */}
-                {Math.floor(metrics?.getRequiredsLeads) || 0}
+                {(metrics?.getRequiredsLeads)?.toFixed(4) || 0}
               </span>
             </div>
             {/* <div className="text-xs text-gray-600">

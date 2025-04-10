@@ -159,7 +159,7 @@ function PromptGenerator() {
   const [reasoning, setReasoning] = React.useState('');
   const { user } = useProductStore();
   const { addTask } = useBackground();
-  const API_KEY = import.meta.env.VITE_FAL_KEY || 'c356025c-0f92-4873-a43b-e3346e53cd93:b43044d3956488e624cac9d8ebdc098d';
+  const API_KEY = import.meta.env.VITE_FAL_KEY || '';
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -214,24 +214,24 @@ function PromptGenerator() {
     const file = e.target.files?.[0];
     if (file) {
       const maxSize = 10 * 1024 * 1024; // 10MB limit
-      if (file.size > maxSize) {
-        setError(
-          'File size must be less than 10MB. Please compress your image or use a smaller file.'
-        );
-        return;
-      }
+      // if (file.size > maxSize) {
+      //   setError(
+      //     'File size must be less than 10MB. Please compress your image or use a smaller file.'
+      //   );
+      //   return;
+      // }
 
       // Check image dimensions
       const img = new Image();
       img.onload = () => {
         URL.revokeObjectURL(img.src);
         const maxDimension = 1024;
-        if (img.width > maxDimension || img.height > maxDimension) {
-          setError(
-            `Image dimensions too large. Maximum allowed is ${maxDimension}x${maxDimension} pixels.`
-          );
-          return;
-        }
+        // if (img.width > maxDimension || img.height > maxDimension) {
+        //   setError(
+        //     `Image dimensions too large. Maximum allowed is ${maxDimension}x${maxDimension} pixels.`
+        //   );
+        //   return;
+        // }
 
         // If dimensions are ok, proceed with base64 conversion
         const reader = new FileReader();
@@ -338,6 +338,7 @@ function PromptGenerator() {
     <ToolLayout
       title="Video Prompt Generator"
       description="Generate professional video prompts with AI"
+        modelId="google/gemini-flash-1.5"
       controls={
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">

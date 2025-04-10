@@ -49,7 +49,7 @@ function ProductImageToImage() {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { addTask } = useBackground();
   const { addItem } = useHistory();
-  const API_KEY = import.meta.env.VITE_FAL_KEY || 'c356025c-0f92-4873-a43b-e3346e53cd93:b43044d3956488e624cac9d8ebdc098d';
+  const API_KEY = import.meta.env.VITE_FAL_KEY || '';
 
   const EXAMPLE_PROMPT = 'perfume bottle in a volcano surrounded by lava.';
 
@@ -103,6 +103,7 @@ function ProductImageToImage() {
         return;
       }
 
+      
       // Check image dimensions
       const img = new Image();
       img.onload = () => {

@@ -47,7 +47,7 @@ export const useVoice = create<VoiceState>()(
           // Only attempt API removal if we have an API key
           if (
             !import.meta.env.VITE_ELEVENLABS_API_KEY ||
-            'sk_060daf1571fe015fbad9f5f86d5dea78106efc8cafaade2d'
+            ''
           ) {
             console.warn('No API key found, skipping API voice removal');
             return;
@@ -56,7 +56,7 @@ export const useVoice = create<VoiceState>()(
           const client = new ElevenLabsClient({
             apiKey:
               import.meta.env.VITE_ELEVENLABS_API_KEY ||
-              'sk_060daf1571fe015fbad9f5f86d5dea78106efc8cafaade2d',
+              '',
           });
           await client.voices.delete(id);
         } catch (err) {

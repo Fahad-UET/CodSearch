@@ -1,4 +1,4 @@
-export type LipSyncModel = 'lipsync-1.8.0' | 'lipsync-1.7.1' | 'lipsync-1.9.0-beta';
+export type LipSyncModel = 'lipsync-1.8.0' | 'lipsync-1.7.1' | 'lipsync-1.9.0-beta' | 'lipsync-2.0';
 export type SyncMode = 'cut_off' | 'loop' | 'bounce';
 
 export interface LipSyncRequestOptions {

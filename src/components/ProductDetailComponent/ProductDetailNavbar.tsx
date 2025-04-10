@@ -104,7 +104,7 @@ export default function NavGroup({ activeTab, setActiveTab, product }: NavGroupP
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-      <NavDropdown
+      {/* <NavDropdown
         aiVoiceOver
         icon={<Mic />}
         label="AI Voice Over"
@@ -112,7 +112,7 @@ export default function NavGroup({ activeTab, setActiveTab, product }: NavGroupP
         items={voiceOverItems}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-      />
+      /> */}
       {mainItems.map(item => (
         <NavItem
           key={item.value}

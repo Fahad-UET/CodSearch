@@ -41,7 +41,7 @@ export function ServiceProviderSection({
         </button>
         <button
           type="button"
-          onClick={onOpenSettings}
+          onClick={onOpenSettings  }
           className="p-2 text-purple-400 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
           title="Provider Settings"
         >
